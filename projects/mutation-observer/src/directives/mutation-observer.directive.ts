@@ -4,6 +4,7 @@ import {MutationObserverService} from '../services/mutation-observer.service';
 import {MUTATION_OBSERVER_INIT} from '../tokens/mutation-observer-init';
 import {mutationObserverInitFactory} from '../utils/mutation-observer-init-factory';
 
+// @dynamic
 @Directive({
     selector: '[waMutationObserver]',
     outputs: ['waMutationObserver'],
