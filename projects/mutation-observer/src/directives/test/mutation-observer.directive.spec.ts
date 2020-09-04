@@ -40,8 +40,6 @@ describe('MutationObserverDirective', () => {
         fixture = TestBed.createComponent(TestComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
-        testComponent.onMutation.calls.reset();
-        testComponent.onAttributes.calls.reset();
     });
 
     afterAll(() => {
@@ -50,8 +48,7 @@ describe('MutationObserverDirective', () => {
     });
 
     it('Emits intersections', done => {
-        expect(testComponent.onMutation).not.toHaveBeenCalled();
-
+        testComponent.onMutation.calls.reset();
         testComponent.child = false;
         fixture.detectChanges();
 
@@ -62,8 +59,7 @@ describe('MutationObserverDirective', () => {
     });
 
     it('Watches attributes', done => {
-        expect(testComponent.onAttributes).not.toHaveBeenCalled();
-
+        testComponent.onAttributes.calls.reset();
         testComponent.title = 'test';
         fixture.detectChanges();
 
@@ -74,8 +70,7 @@ describe('MutationObserverDirective', () => {
     });
 
     it('Ignores unwatched attributes', done => {
-        expect(testComponent.onAttributes).not.toHaveBeenCalled();
-
+        testComponent.onAttributes.calls.reset();
         testComponent.label = 'test';
         fixture.detectChanges();
 
