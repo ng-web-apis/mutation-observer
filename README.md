@@ -28,7 +28,37 @@ npm i @ng-web-apis/mutation-observer
 
 ## Usage
 
-TBD
+Add `MutationObserverModule` and then use
+`(waMutationObserver)="onMutation($event)"` directive
+to watch mutation in an element.
+
+Alternatively use `MutationObserverService` manually to
+get `MutationObserver` in an RxJS `Observable` form.
+
+## Configuring
+
+Use attributes on an element to define
+[MutationObserverInit](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserverInit)
+config object. All attributes are `boolean` meaning
+no need to explicitly set them to `true`.
+
+> **NOTE:** Keep in mind these are used one time in constructor so you cannot use binding, only strings. Pass comma separated attribute names to set `attributeFilter` array.
+
+## Example
+
+```html
+<div
+    subtree
+    childList
+    characterData
+    attributeFilter="title, aria-label"
+    [title]="title"
+    [attr.aria-label]="label"
+    (waMutationObserver)="onMutation($event)"
+>
+    ...
+</div>
+```
 
 ## Browser support
 
