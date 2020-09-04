@@ -9,7 +9,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 export class AppComponent {
     toggled = false;
 
-    disabled: true | null = null;
+    disabled: true | null = null; // null so the attribute gets removed
 
     title = 'title';
 
