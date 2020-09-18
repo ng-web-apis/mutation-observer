@@ -1,15 +1,20 @@
-import {Attribute, Directive, ElementRef, Inject} from '@angular/core';
-import {Observable} from 'rxjs';
-import {MutationObserverService} from '../services/mutation-observer.service';
+import {
+    Attribute,
+    Directive,
+    ElementRef,
+    EventEmitter,
+    Inject,
+    OnDestroy,
+    Output,
+} from '@angular/core';
 import {MUTATION_OBSERVER_INIT} from '../tokens/mutation-observer-init';
 import {mutationObserverInitFactory} from '../utils/mutation-observer-init-factory';
 
 // @dynamic
 @Directive({
     selector: '[waMutationObserver]',
-    outputs: ['waMutationObserver'],
+    exportAs: 'MutationObserver',
     providers: [
-        MutationObserverService,
         {
             provide: MUTATION_OBSERVER_INIT,
             deps: [ElementRef],
@@ -17,10 +22,13 @@ import {mutationObserverInitFactory} from '../utils/mutation-observer-init-facto
         },
     ],
 })
-export class MutationObserverDirective {
+export class MutationObserverDirective extends MutationObserver implements OnDestroy {
+    @Output()
+    readonly waMutationObserver = new EventEmitter<MutationRecord[]>();
+
     constructor(
-        @Inject(MutationObserverService)
-        readonly waMutationObserver: Observable<ReadonlyArray<MutationRecord>>,
+        @Inject(ElementRef) {nativeElement}: ElementRef<Node>,
+        @Inject(MUTATION_OBSERVER_INIT) config: MutationObserverInit,
         @Attribute('attributeFilter') _1: unknown,
         @Attribute('attributeOldValue') _2: unknown,
         @Attribute('attributes') _3: unknown,
@@ -28,5 +36,15 @@ export class MutationObserverDirective {
         @Attribute('characterDataOldValue') _5: unknown,
         @Attribute('childList') _6: unknown,
         @Attribute('subtree') _7: unknown,
-    ) {}
+    ) {
+        super(records => {
+            this.waMutationObserver.emit(records);
+        });
+
+        this.observe(nativeElement, config);
+    }
+
+    ngOnDestroy() {
+        this.disconnect();
+    }
 }
