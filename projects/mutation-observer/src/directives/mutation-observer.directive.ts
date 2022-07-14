@@ -7,10 +7,10 @@ import {
     OnDestroy,
     Output,
 } from '@angular/core';
+
 import {MUTATION_OBSERVER_INIT} from '../tokens/mutation-observer-init';
 import {mutationObserverInitFactory} from '../utils/mutation-observer-init-factory';
 
-// @dynamic
 @Directive({
     selector: '[waMutationObserver]',
     exportAs: 'MutationObserver',
@@ -44,7 +44,7 @@ export class MutationObserverDirective extends MutationObserver implements OnDes
         this.observe(nativeElement, config);
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.disconnect();
     }
 }

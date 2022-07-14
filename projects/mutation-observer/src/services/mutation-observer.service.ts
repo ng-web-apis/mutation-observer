@@ -1,10 +1,10 @@
 import {ElementRef, Inject, Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+
 import {MUTATION_OBSERVER_INIT} from '../tokens/mutation-observer-init';
 
-// @dynamic
 @Injectable()
-export class MutationObserverService extends Observable<ReadonlyArray<MutationRecord>> {
+export class MutationObserverService extends Observable<readonly MutationRecord[]> {
     constructor(
         @Inject(ElementRef) {nativeElement}: ElementRef<Node>,
         @Inject(MUTATION_OBSERVER_INIT) config: MutationObserverInit,

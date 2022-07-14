@@ -6,21 +6,18 @@
     <input type="text" aria-label="ignored" [(ngModel)]="ignored" />
 </p>
 <div
-    class="observer"
     subtree
     childList
     characterData
     attributeFilter="title, disabled"
+    class="observer"
     [title]="title"
     [attr.disabled]="disabled"
-    [attr.aria-label]="unobserved"
+    [attr.aria-label]="ignored"
     (waMutationObserver)="log($event)"
 >
-    I am being observed for text changes, DOM changes and "title" and "disabled"
-    attributes: {{ text }}
-    <div *ngIf="toggled; else default">
-        I am dynamically added DOM element
-    </div>
+    I am being observed for text changes, DOM changes and "title" and "disabled" attributes: {{ text }}
+    <div *ngIf="toggled; else default">I am dynamically added DOM element</div>
     <ng-template #default>
         <div>See console for logged mutations</div>
     </ng-template>
