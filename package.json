@@ -30,7 +30,6 @@
         "build": "ng build",
         "postbuild": "node scripts/postbuild.js",
         "test": "ng test",
-        "posttest": "node scripts/coveralls.js",
         "stylelint": "stylelint '**/*.{less,css}'",
         "lint": "eslint --cache --cache-location node_modules/.cache/eslint",
         "typecheck": "tsc --noEmit --skipLibCheck",
